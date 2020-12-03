@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { Container } from "reactstrap";
 
 export default class Layout extends Component {
