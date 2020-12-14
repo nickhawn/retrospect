@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30717.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "retrospect", "retrospect.csproj", "{12BAA147-F614-463D-964B-E8A97C50D09D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{12BAA147-F614-463D-964B-E8A97C50D09D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{12BAA147-F614-463D-964B-E8A97C50D09D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{12BAA147-F614-463D-964B-E8A97C50D09D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{12BAA147-F614-463D-964B-E8A97C50D09D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D4AE0D9B-72BC-4626-A385-3882AAEBE6F3}
+	EndGlobalSection
+EndGlobal
