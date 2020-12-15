@@ -2,14 +2,14 @@ import React from "react";
 import { Card, CardBody, CardText } from "reactstrap";
 import Trashcan from './Trashcan';
 
-export default function FeedbackCard({ feedback, id }) {
+export default function FeedbackCard({ feedback }) {
     return (
-        <Card>
+        <Card className="mt-3">
             <CardBody>
                 <CardText className="text-center">
-                    {feedback}
+                    {feedback.content}
                 </CardText>
-                <Trashcan itemId={id} />
+                <Trashcan itemId={feedback.id} />
             </CardBody>
         </Card>
     );

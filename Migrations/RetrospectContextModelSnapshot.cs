@@ -28,9 +28,6 @@ namespace retrospect.Migrations
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
                     b.Property<int>("Votes")
                         .HasColumnType("int");
 

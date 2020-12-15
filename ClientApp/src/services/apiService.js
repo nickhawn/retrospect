@@ -7,7 +7,7 @@ export const getFeedback = async (content) => {
     return new Promise(async function (resolve, reject) {
         await axios.get('/api/feedback')
             .then(response => {
-                resolve(response.data);
+                resolve(response.data.reverse());
             })
             .catch(error => {
                 reject(error.response);

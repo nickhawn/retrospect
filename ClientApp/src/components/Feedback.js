@@ -7,9 +7,10 @@ export default function Columns({ columnName }) {
     const [inputValue, setInputValue] = useState("");
     const [feedback, setFeedback] = useState([]);
 
-  const inputGroupChangeHandler = (e) => {
-    e.preventDefault();
-    postFeedback(inputValue);
+    const inputGroupChangeHandler = (e) => {
+        e.preventDefault();
+        postFeedback(inputValue);
+        document.getElementById("feedback-form").reset();
     };
 
     useEffect(() => {
@@ -17,26 +18,26 @@ export default function Columns({ columnName }) {
             setFeedback((await getFeedback()))
         }
         fetchData()
-    }, []);
+    }, [feedback]);
 
-  return (
-    <Fragment>
-      <p className="text-center">{columnName}</p>
-      <Form onSubmit={inputGroupChangeHandler}>
-        <InputGroup>
-          <Input
-            type="text"
-            name={columnName}
-            id={columnName}
-            aria-label={columnName}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <Button onClick={inputGroupChangeHandler}>Submit</Button>
-        </InputGroup>
-          </Form>
-          {feedback && feedback.map((team, i) => {
-              return <FeedbackCard key={i} feedback={team.content} id={team.id} />
-          })}
-    </Fragment>
-  );
+    return (
+        <Fragment>
+            <p className="text-center">{columnName}</p>
+            <Form id="feedback-form" onSubmit={inputGroupChangeHandler}>
+                <InputGroup>
+                    <Input
+                        type="text"
+                        name={columnName}
+                        id={columnName}
+                        aria-label={columnName}
+                        onChange={(e) => setInputValue(e.target.value)}
+                    />
+                    <Button onClick={inputGroupChangeHandler}>Submit</Button>
+                </InputGroup>
+            </Form>
+            {feedback && feedback.map((feedback, i) => {
+                return <FeedbackCard key={i} feedback={feedback} />
+            })}
+        </Fragment>
+    );
 }
