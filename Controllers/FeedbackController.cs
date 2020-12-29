@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -7,7 +8,7 @@ using retrospect.Models;
 
 namespace retrospect.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/[controller]/[action]")]
     [ApiController]
     public class FeedbackController : ControllerBase
     {
@@ -32,6 +33,20 @@ namespace retrospect.Controllers
             await _context.SaveChangesAsync();
 
             return CreatedAtAction("GetFeedback", new { id = feedback.Id }, feedback);
+        }
+
+        [HttpPost("{id}")]
+        public async Task<ActionResult<Feedback>> PostVote(Guid id)
+        {
+            var result = _context.Feedback.SingleOrDefault(f => f.Id == id);
+            if (result != null)
+            {
+                result.Votes++;
+                _context.Update(result);
+                await _context.SaveChangesAsync();
+            }
+
+            return CreatedAtAction("GetFeedback", new { id = result.Id }, result);
         }
 
         [HttpDelete("{id}")]

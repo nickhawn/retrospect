@@ -1,11 +1,8 @@
 import axios from "axios";
 
-export const postFeedback = (content) =>
-    post("/api/feedback", { content: content });
-
-export const getFeedback = async (content) => {
-    return new Promise(async function (resolve, reject) {
-        await axios.get('/api/feedback')
+export const getFeedback = async () =>
+    new Promise(async function (resolve, reject) {
+        await axios.get('/api/Feedback/GetFeedback')
             .then(response => {
                 resolve(response.data.reverse());
             })
@@ -13,13 +10,12 @@ export const getFeedback = async (content) => {
                 reject(error.response);
             })
     })
-}
 
-export const deleteFeedback = (id) => {
-    axios.delete(`/api/feedback/${id}`);
-}
+export const postFeedback = content =>
+    post("/api/feedback/PostFeedback/", { content: content });
 
-const post = (uri, content) =>
-    axios
-        .post(uri, content)
-        .then((response) => console.log("Response:" + response.data));
+export const postVote = id => axios.post(`/api/feedback/PostVote/${id}`);
+
+export const deleteFeedback = id => axios.delete(`/api/feedback/DeleteFeedback/${id}`);
+
+const post = (uri, content) => axios.post(uri, content)

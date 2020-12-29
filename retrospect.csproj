@@ -30,6 +30,7 @@
 
   <ItemGroup>
     <Folder Include="Migrations\" />
+    <Folder Include="App_Start\" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
