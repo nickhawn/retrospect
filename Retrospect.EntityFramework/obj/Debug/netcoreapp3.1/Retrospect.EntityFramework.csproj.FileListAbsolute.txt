@@ -1,0 +1,12 @@
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.csprojAssemblyReference.cache
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.AssemblyInfoInputs.cache
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.AssemblyInfo.cs
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.csproj.CoreCompileInputs.cache
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\bin\Debug\netcoreapp3.1\Retrospect.EntityFramework.deps.json
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\bin\Debug\netcoreapp3.1\Retrospect.EntityFramework.dll
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\bin\Debug\netcoreapp3.1\Retrospect.EntityFramework.pdb
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\bin\Debug\netcoreapp3.1\Core.dll
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\bin\Debug\netcoreapp3.1\Core.pdb
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.csproj.CopyComplete
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.dll
+C:\Users\nhawn\source\repos\Retrospect\Retrospect.EntityFramework\obj\Debug\netcoreapp3.1\Retrospect.EntityFramework.pdb

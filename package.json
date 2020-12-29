@@ -1,5 +1,0 @@
-{
-    "scripts": {
-      "start": "dotnet build; dotnet run;"
-    }
-  }
