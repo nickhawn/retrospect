@@ -1,19 +1,34 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Col, Row } from "reactstrap";
-import Column from "./Feedback";
+import Feedback from "./Feedback";
+import { getFeedback } from "../services/apiService";
 
 export default function Prompts() {
-  return (
-    <Row className="mt-5">
-      <Col>
-        <Column columnName="What worked well?" />
-      </Col>
-      <Col>
-        <Column columnName="What could be improved?" />
-      </Col>
-      <Col>
-        <Column columnName="What will we improve in the next Sprint?" />
-      </Col>
-    </Row>
-  );
+    const [didWellFeedback, setDidWellFeedback] = useState([]);
+    const [needsImprovedFeedback, setNeedsImprovedFeedback] = useState([]);
+    const [willImproveFeedback, setWillImproveFeedback] = useState([]);
+
+    useEffect(() => {
+        async function fetchData() {
+            let feedback = await getFeedback()
+            setDidWellFeedback(feedback.filter(f => f.type === 0))
+            setNeedsImprovedFeedback(feedback.filter(f => f.type === 1))
+            setWillImproveFeedback(feedback.filter(f => f.type === 2))
+        }
+        fetchData()
+    }, []);
+
+    return (
+        <Row className="mt-5">
+            <Col>
+                <Feedback columnIndex={0} columnName="What worked well?" feedback={didWellFeedback} />
+            </Col>
+            <Col>
+                <Feedback columnIndex={1} columnName="What could be improved?" feedback={needsImprovedFeedback} />
+            </Col>
+            <Col>
+                <Feedback columnIndex={2} columnName="What will we improve in the next Sprint?" feedback={willImproveFeedback} />
+            </Col>
+        </Row>
+    );
 }

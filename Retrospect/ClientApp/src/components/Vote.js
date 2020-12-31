@@ -3,7 +3,7 @@ import { Button } from 'reactstrap';
 import { postVote } from "../services/apiService";
 
 export default function Votes({ votes, id }) {
-    const [cardVotes, updateCardVotes] = useState(votes);
+    const [cardVotes] = useState(votes);
 
     return (
         <Fragment>

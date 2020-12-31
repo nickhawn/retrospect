@@ -11,8 +11,8 @@ export const getFeedback = async () =>
             })
     })
 
-export const postFeedback = content =>
-    post("/api/feedback/PostFeedback/", { content: content });
+export const postFeedback = (content, feedbackId) =>
+    post("/api/feedback/PostFeedback/", { content: content, type: feedbackId });
 
 export const postVote = id => axios.post(`/api/feedback/PostVote/${id}`);
 
