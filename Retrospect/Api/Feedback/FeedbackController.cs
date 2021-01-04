@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Retrospect.EntityFramework.Data;
 using Retrospect.Data;
+using Retrospect.Web.Data.Hubs;
+using Microsoft.AspNetCore.SignalR;
 
 namespace Retrospect.Web.Data
 {
@@ -14,8 +16,13 @@ namespace Retrospect.Web.Data
     public class FeedbackController : ControllerBase
     {
         private readonly RetrospectContext _context;
+        IHubContext<FeedbackHub, IFeedbackClient> _feedbackHubContext;
 
-        public FeedbackController(RetrospectContext context) => _context = context;
+        public FeedbackController(RetrospectContext context, IHubContext<FeedbackHub, IFeedbackClient> feedbackHub)
+        {
+            _context = context;
+            _feedbackHubContext = feedbackHub;
+        }
 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Feedback>>> GetFeedback() => await _context.Feedback.ToListAsync();
@@ -32,6 +39,7 @@ namespace Retrospect.Web.Data
         {
             _context.Feedback.Add(feedback);
             await _context.SaveChangesAsync();
+            await _feedbackHubContext.Clients.All.ReceiveFeedback(feedback);
 
             return CreatedAtAction("GetFeedback", new { id = feedback.Id }, feedback);
         }

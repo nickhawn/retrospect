@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@microsoft/signalr": "^5.0.1",
     "@testing-library/jest-dom": "^0.0.0-semantically-released",
     "axios": "^0.21.0",
     "bootstrap": "^4.1.3",
