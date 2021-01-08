@@ -22,13 +22,13 @@ export default function Prompts() {
     }, []);
 
     useEffect(() => {
-        async function fetchData() {
-            setFeedback(await getFeedback())
-            setDidWellFeedback(feedback.filter(f => f.type === 0))
-            setNeedsImprovedFeedback(feedback.filter(f => f.type === 1))
-            setWillImproveFeedback(feedback.filter(f => f.type === 2))
-        }
-        fetchData()
+        updateFeedback()
+    }, []);
+
+    useEffect(() => {
+        setDidWellFeedback(feedback.filter(f => f.type === 0))
+        setNeedsImprovedFeedback(feedback.filter(f => f.type === 1))
+        setWillImproveFeedback(feedback.filter(f => f.type === 2))
     }, [feedback]);
 
     useEffect(() => {
@@ -38,10 +38,17 @@ export default function Prompts() {
                     connection.on('ReceiveFeedback', newFeedback => {
                         setFeedback(feedback => [...feedback, newFeedback]);
                     });
+                    connection.on('DeleteFeedback', () => {
+                        updateFeedback()
+                    });
                 })
                 .catch(e => console.log('Connection failed: ', e));
         }
     }, [connection]);
+
+    const updateFeedback = async () => {
+        setFeedback(await getFeedback())
+    }
 
     return (
         <Row className="mt-5">

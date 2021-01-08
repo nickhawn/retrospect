@@ -53,6 +53,7 @@ namespace Retrospect.Web.Data
                 result.Votes++;
                 _context.Update(result);
                 await _context.SaveChangesAsync();
+                await _feedbackHubContext.Clients.All.UpdateFeedback(result);
             }
 
             return CreatedAtAction("GetFeedback", new { id = result.Id }, result);
@@ -65,6 +66,7 @@ namespace Retrospect.Web.Data
             if (feedback == null)
                 return NotFound();
 
+            await _feedbackHubContext.Clients.All.DeleteFeedback();
             _context.Feedback.Remove(feedback);
             await _context.SaveChangesAsync();
 
