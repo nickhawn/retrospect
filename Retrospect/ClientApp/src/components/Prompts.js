@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { Col, Row } from "reactstrap";
 import Feedback from "./Feedback";
 import { getFeedback } from "../services/apiService";
 import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
+import FeedbackContext from "../contexts/FeedbackContext";
 
 export default function Prompts() {
+    const [feedback, setFeedback] = useContext(FeedbackContext);
     const [connection, setConnection] = useState(null);
-    const [feedback, setFeedback] = useState([]);
     const [didWellFeedback, setDidWellFeedback] = useState([]);
     const [needsImprovedFeedback, setNeedsImprovedFeedback] = useState([]);
     const [willImproveFeedback, setWillImproveFeedback] = useState([]);
