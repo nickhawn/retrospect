@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
+import { useHub } from "../hookss/FeedbackHub";
 import Feedback from "./Feedback";
-import { getFeedback } from "../services/apiService";
-import { HubConnectionBuilder, LogLevel } from '@microsoft/signalr';
-import FeedbackContext from "../contexts/FeedbackContext";
 
 export default function Prompts() {
-    const [feedback, setFeedback] = useContext(FeedbackContext);
-    const [connection, setConnection] = useState(null);
     const [didWellFeedback, setDidWellFeedback] = useState([]);
     const [needsImprovedFeedback, setNeedsImprovedFeedback] = useState([]);
     const [willImproveFeedback, setWillImproveFeedback] = useState([]);
+    const {
+        startConnection,
+        buildHub,
+        feedback,
+        updateFeedback
+    } = useHub();
 
     useEffect(() => {
-        const newConnection = new HubConnectionBuilder()
-            .configureLogging(LogLevel.None)
-            .withUrl('https://localhost:44397/hubs/feedback')
-            .withAutomaticReconnect()
-            .build();
-
-        setConnection(newConnection);
-    }, []);
-
-    useEffect(() => {
-        updateFeedback()
+        buildHub();
+        startConnection();
+        updateFeedback();
     }, []);
 
     useEffect(() => {
@@ -31,25 +25,6 @@ export default function Prompts() {
         setNeedsImprovedFeedback(feedback.filter(f => f.type === 1))
         setWillImproveFeedback(feedback.filter(f => f.type === 2))
     }, [feedback]);
-
-    useEffect(() => {
-        if (connection) {
-            connection.start()
-                .then(result => {
-                    connection.on('ReceiveFeedback', newFeedback => {
-                        setFeedback(feedback => [...feedback, newFeedback]);
-                    });
-                    connection.on('DeleteFeedback', () => {
-                        updateFeedback()
-                    });
-                })
-                .catch(e => console.log('Connection failed: ', e));
-        }
-    }, [connection]);
-
-    const updateFeedback = async () => {
-        setFeedback(await getFeedback())
-    }
 
     return (
         <Row className="mt-5">
