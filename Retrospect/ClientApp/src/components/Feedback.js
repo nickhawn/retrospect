@@ -1,24 +1,16 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState } from "react";
 import { Form, Input, InputGroup, Button } from "reactstrap";
-import { postFeedback, getFeedback } from "../services/apiService";
+import { postFeedback } from "../services/apiService";
 import FeedbackCard from "./FeedbackCard";
 
-export default function Columns({ columnName }) {
+export default function Feedback({ columnName, feedback, columnIndex }) {
     const [inputValue, setInputValue] = useState("");
-    const [feedback, setFeedback] = useState([]);
 
     const inputGroupChangeHandler = (e) => {
         e.preventDefault();
-        postFeedback(inputValue);
+        postFeedback(inputValue, columnIndex);
         document.getElementById("feedback-form").reset();
     };
-
-    useEffect(() => {
-        async function fetchData() {
-            setFeedback((await getFeedback()))
-        }
-        fetchData()
-    }, [feedback]);
 
     return (
         <Fragment>
