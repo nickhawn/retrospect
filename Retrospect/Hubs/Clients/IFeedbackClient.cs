@@ -7,8 +7,6 @@ namespace Retrospect.Web.Data.Hubs
     {
         Task ReceiveFeedback(Feedback feedback);
 
-        Task DeleteFeedback();
-
-        Task UpdateFeedback(Feedback feedback);
+        Task DeleteFeedback(Feedback feedback);
     }
 }

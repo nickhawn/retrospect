@@ -14,8 +14,6 @@ export const getFeedback = async () =>
 export const postFeedback = (content, feedbackId) =>
     post("/api/feedback/PostFeedback/", { content: content, type: feedbackId });
 
-export const postVote = id => axios.post(`/api/feedback/PostVote/${id}`);
-
 export const deleteFeedback = id => axios.delete(`/api/feedback/DeleteFeedback/${id}`);
 
 const post = (uri, content) => axios.post(uri, content)

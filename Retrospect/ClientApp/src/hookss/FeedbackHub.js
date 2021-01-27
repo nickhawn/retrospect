@@ -19,7 +19,8 @@ export function useHub() {
         _hub = build();
         handleCloseConnection(_hub);
         handleError(_hub);
-        handleUpdateFeedback(_hub);
+        handleNewFeedback(_hub);
+        handleDeleteFeedback(_hub);
     }
 
     function build() {
@@ -44,25 +45,25 @@ export function useHub() {
         });
     }
 
-    function handleUpdateFeedback(hub) {
+    function handleNewFeedback(hub) {
         hub.on("ReceiveFeedback", (newFeedback) => {
             setFeedback(feedback => [...feedback, newFeedback]);
         });
     }
 
-    function handleUpdateFeedback(hub) {
-        hub.on('DeleteFeedback', () => {
-            updateFeedback()
+    function handleDeleteFeedback(hub) {
+        hub.on('DeleteFeedback', feedbackToDelete => {
+            setFeedback(feedback => feedback.filter(f => f.id != feedbackToDelete.id))
         });
     }
 
-    async function updateFeedback() {
+    async function updateFeedback(hub) {
         setFeedback(await getFeedback())
     }
 
     function handleError(hub) {
         hub.on("Error", () => {
-            alert("Hello! I am an alert box!!")
+            alert("An error has occured.")
         });
     }
 }

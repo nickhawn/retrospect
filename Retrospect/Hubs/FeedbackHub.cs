@@ -8,8 +8,6 @@ namespace Retrospect.Web.Data.Hubs
     {
         public async Task SendFeedback(Feedback feedback) => await Clients.All.ReceiveFeedback(feedback);
 
-        public async Task DeleteFeedback() => await Clients.All.DeleteFeedback();
-
-        public async Task UpdateFeedback(Feedback feedback) => await Clients.All.UpdateFeedback(feedback);
+        public async Task DeleteFeedback(Feedback feedback) => await Clients.All.DeleteFeedback(feedback);
     }
 }

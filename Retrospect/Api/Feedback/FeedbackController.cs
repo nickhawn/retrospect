@@ -44,21 +44,6 @@ namespace Retrospect.Web.Data
             return CreatedAtAction("GetFeedback", new { id = feedback.Id }, feedback);
         }
 
-        [HttpPost("{id}")]
-        public async Task<ActionResult<Feedback>> PostVote(Guid id)
-        {
-            var result = _context.Feedback.SingleOrDefault(f => f.Id == id);
-            if (result != null)
-            {
-                result.Votes++;
-                _context.Update(result);
-                await _context.SaveChangesAsync();
-                await _feedbackHubContext.Clients.All.UpdateFeedback(result);
-            }
-
-            return CreatedAtAction("GetFeedback", new { id = result.Id }, result);
-        }
-
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteFeedback(Guid id)
         {
@@ -66,7 +51,7 @@ namespace Retrospect.Web.Data
             if (feedback == null)
                 return NotFound();
 
-            await _feedbackHubContext.Clients.All.DeleteFeedback();
+            await _feedbackHubContext.Clients.All.DeleteFeedback(feedback);
             _context.Feedback.Remove(feedback);
             await _context.SaveChangesAsync();
 
