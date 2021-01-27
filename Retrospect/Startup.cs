@@ -6,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Retrospect.EntityFramework.Data;
+using Retrospect.Web.Data.Hubs;
 
 namespace Retrospect
 {
@@ -25,12 +26,25 @@ namespace Retrospect
             services.AddDbContext<RetrospectContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddSignalR();
+
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/build";
+            });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("ClientPermission", policy =>
+                {
+                    policy.AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .WithOrigins("http://localhost:44397")
+                        .AllowCredentials();
+                });
             });
         }
 
@@ -51,6 +65,7 @@ namespace Retrospect
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
+            app.UseCors("ClientPermission");
 
             app.UseRouting();
 
@@ -59,6 +74,7 @@ namespace Retrospect
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapHub<FeedbackHub>("/hubs/feedback");
             });
 
             app.UseSpa(spa =>
