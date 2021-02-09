@@ -53,7 +53,7 @@ export function useHub() {
 
     function handleDeleteFeedback(hub) {
         hub.on('DeleteFeedback', feedbackToDelete => {
-            setFeedback(feedback => feedback.filter(f => f.id != feedbackToDelete.id))
+            setFeedback(feedback => feedback.filter(f => f.id !== feedbackToDelete.id))
         });
     }
 
