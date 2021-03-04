@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Col, Row } from "reactstrap";
-import { useHub } from "../hookss/FeedbackHub";
+import { useHub } from "../hooks/FeedbackHub";
 import Feedback from "./Feedback";
 
 export default function Prompts() {
     const [didWellFeedback, setDidWellFeedback] = useState([]);
     const [needsImprovedFeedback, setNeedsImprovedFeedback] = useState([]);
     const [willImproveFeedback, setWillImproveFeedback] = useState([]);
+
     const {
         startConnection,
         buildHub,

@@ -1,18 +1,34 @@
-﻿import { HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
-import { useContext } from "react";
-import FeedbackContext from "../contexts/FeedbackContext";
-import { getFeedback } from "../services/apiService";
+﻿import { HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr"
+import { useContext } from "react"
+import CountdownContext from "../contexts/CountdownContext"
+import FeedbackContext from "../contexts/FeedbackContext"
+import { getFeedback } from "../services/apiService"
+import dayjs from '../services/datejsProvider'
 
 let _hub;
 
 export function useHub() {
-    const [feedback, setFeedback] = useContext(FeedbackContext);
+    const [feedback, setFeedback] = useContext(FeedbackContext)
+    const [countdown, setCountdown] = useContext(CountdownContext)
+
+    function startCountdown() {
+        if (_hub.connectionState === HubConnectionState.Connected)
+            return _hub.invoke("StartCountdown")
+    }
+
+    function resetCountdown() {
+        if (_hub.connectionState === HubConnectionState.Connected)
+            return _hub.invoke("ResetCountdown")
+    }
 
     return {
         buildHub,
         startConnection,
         feedback,
-        updateFeedback
+        countdown,
+        updateFeedback,
+        startCountdown,
+        resetCountdown
     }
 
     async function buildHub() {
@@ -21,6 +37,7 @@ export function useHub() {
         handleError(_hub);
         handleNewFeedback(_hub);
         handleDeleteFeedback(_hub);
+        handleCountdownStart(_hub);
     }
 
     function build() {
@@ -53,7 +70,13 @@ export function useHub() {
 
     function handleDeleteFeedback(hub) {
         hub.on('DeleteFeedback', feedbackToDelete => {
-            setFeedback(feedback => feedback.filter(f => f.id != feedbackToDelete.id))
+            setFeedback(feedback => feedback.filter(f => f.id !== feedbackToDelete.id))
+        });
+    }
+
+    function handleCountdownStart(hub) {
+        hub.on('StartCountdown', timer => {
+            setCountdown(Math.abs(dayjs.utc().diff(timer)))
         });
     }
 
