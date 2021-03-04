@@ -1,47 +1,39 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
-import { Button } from 'reactstrap';
-import Countdown, { zeroPad } from 'react-countdown';
-
-let times = [300000, 240000, 180000, 120000, 60000];
+﻿import React, { useEffect, useRef, useState } from 'react'
+import { Button } from 'reactstrap'
+import Countdown, { zeroPad } from 'react-countdown'
+import { useHub } from "../hooks/FeedbackHub"
 
 export default function Timer() {
-    const [currentTimeIndex, setCurrentTimeIndex] = useState(0);
-    const [currentTime, setCurrentTime] = useState(Date.now() + times[currentTimeIndex]);
+    const [currentTime, setCurrentTime] = useState(0)
 
-    const clockRef = useRef();
-    const handleStart = () => clockRef.current.start();
-    const onComplete = () => {
-        setCurrentTimeIndex(currentTimeIndex + 1)
-    }
+    const {
+        countdown,
+        startCountdown
+    } = useHub();
+
+    const startTimer = () => startCountdown();
 
     useEffect(() => {
-        if (times.length > currentTimeIndex)
-            setCurrentTime(Date.now() + times[currentTimeIndex])
-    }, [currentTimeIndex]);
+        setCurrentTime(Date.now() + countdown)
+    }, [countdown])
 
-    const renderer = ({ minutes, seconds }) => {
-        return (
-            <>
-                <div className="text-center container-fluid">
-                    <span>{zeroPad(minutes)}:{zeroPad(seconds)}</span>
-
-                </div>
-                <div className="text-center container-fluid">
-                    <Button onClick={handleStart}>Start</Button>
-                </div>
-                
-            </>
-        );
-    };
+    const renderer = ({ minutes, seconds }) =>
+        (
+            <div className="text-center display-4 container-fluid">
+                <span>{zeroPad(minutes)}:{zeroPad(seconds)}</span>
+            </div>
+        )
 
     return (
-        <Countdown
-            date={currentTime}
-            key={currentTimeIndex}
-            autoStart={false}
-            ref={clockRef}
-            onComplete={onComplete}
-            renderer={renderer}
-        />
-    );
+        <>
+            <Countdown
+                date={currentTime}
+                key={currentTime}
+                renderer={renderer}
+            />
+            <div className="text-center container-fluid">
+                <Button onClick={startTimer}>Start</Button>
+            </div>
+        </>
+    )
 }

@@ -1,3 +1,4 @@
+using Core;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
@@ -29,6 +30,8 @@ namespace Retrospect
             services.AddSignalR();
 
             services.AddControllersWithViews();
+
+            services.AddSingleton<ICountdownCoordinator, CountdownCoordinator>();
 
             // In production, the React files will be served from this directory
             services.AddSpaStaticFiles(configuration =>

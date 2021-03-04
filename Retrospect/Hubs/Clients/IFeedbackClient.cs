@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using Retrospect.Data;
 
 namespace Retrospect.Web.Data.Hubs
@@ -8,5 +9,9 @@ namespace Retrospect.Web.Data.Hubs
         Task ReceiveFeedback(Feedback feedback);
 
         Task DeleteFeedback(Feedback feedback);
+
+        Task StartCountdown(DateTime datetime);
+
+        Task ResetCountdown();
     }
 }
