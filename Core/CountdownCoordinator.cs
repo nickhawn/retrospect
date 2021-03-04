@@ -23,9 +23,9 @@ namespace Core
             if (_currentIterationIndex != _times.Count - 1)
                 _currentIterationIndex++;
             else
-                ResetTimeAndGetNextIteration();
+                ResetTime();
         }
 
-        private void ResetTimeAndGetNextIteration() => _currentIterationIndex = 0;
+        void ResetTime() => _currentIterationIndex = 0;
     }
 }
