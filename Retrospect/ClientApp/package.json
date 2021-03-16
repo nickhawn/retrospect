@@ -9,7 +9,7 @@
     "dayjs": "^1.10.4",
     "jquery": "^3.4.1",
     "merge": "^1.2.1",
-    "oidc-client": "^1.9.0",
+    "oidc-client": "^1.11.5",
     "react": "^16.0.0",
     "react-countdown": "^2.3.1",
     "react-dom": "^16.0.0",
